@@ -1,7 +1,7 @@
 ---
 title: "Исследования вариативности в русском языке билингвов"
 author: 
-  - name: "Г. А. Мороз \n Международная лаборатория языковой конвергенции"
+  - name: "Г. А. Мороз (Международная лаборатория языковой конвергенции)"
 date: "03/26/2024"
 date-format: "D.MM.YYYY"
 format: 
@@ -261,14 +261,14 @@ knitr::include_graphics("images/nastya.jpg")
 
 ```{r}
 #| out-width: 93%
-knitr::include_graphics("images/14_df_structure.png")
+knitr::include_graphics("images/11_df_structure_numerals.png")
 ```
 
 ## К сожалению, данные очень разнородные
 
 ```{r}
 #| out-height: 93%
-knitr::include_graphics("images/15_corpora_socio.png")
+knitr::include_graphics("images/12_corpora_socio.png")
 ```
 
 ## Моделирование
@@ -287,13 +287,61 @@ knitr::include_graphics("images/15_corpora_socio.png")
 
 ```{r}
 #| out-height: 93%
-knitr::include_graphics("images/16_model_prediction_by_dice_coefficient_education_num_type.png")
+knitr::include_graphics("images/13_model_prediction_by_dice_coefficient_education_num_type.png")
+```
+
+## Выпадение предлогов в речи билингвов
+
+- Для анализа мы отобрали 4990 контекстов из трех корпусов: бесермянского (1435), марийского (1693), звенигородского (1863): 
+
+- *Со второго курса что ли практика началась, _ больнице.* (марийский русский)
+- *Вот, отремонтировал _ трудом пополам, китайские часы -то.* (бесермянский русский)
+- *я пошёл, _ начальнику дал предложение.* (бесермянский русский)
+
+## Выпадение предлогов в речи билингвов
+
+- Примеры размечены по некотрым параметрам
+    - есть ли опущение предлога
+    - тип предлога: *в*, *с*, *к*
+    - лингвистическим
+        - [коллокационность](https://ruscorpora.ru/results?search=CocBGlUKUxIfCgkKA2xleBICCgAKEgoEZm9ybRIKCgjQv9GP0YLRjBIwCgoKA2xleBIDCgEqCgsKBWdyYW1tEgIKAAoVCgRkaXN0Ig0I%2Ff%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARADKicKCAgAEAoYMiAKEAUgACiSi5X33dvSCTIEZGljZUAFagQwLjk1eAAyAggBOgEHMAE%3D) комбинации предлога + существительного
+        - первый согласный/гласный существительного
+    - социолингвистическим
+        - год рождения
+        - гендер
+        - образование
+        - первый язык
+
+## Данные
+
+```{r}
+#| out-width: 100%
+knitr::include_graphics("images/14_df_structure_prepositions.png")
+```
+
+## Моделирование
+
+Мы запустили иерархическую логистическую регрессию со смешанными эффектами, предсказывая **вероятность выпадения предлога**:
+
+- основные эффекты
+    - коллокационность **
+    - предлог **
+    - год рождения **
+    - образование
+    - гендер
+    - корпус *
+- случайные эффекты
+    - носитель
+
+## Предсказания модели
+
+```{r}
+#| out-height: 93%
+knitr::include_graphics("images/15_model_prediction_by_dice_coefficient_corpus_preposition.png")
 ```
 
 ## Заключение
 
-- корпуса очень разные
-- то, что коллокационность является статистически значимым предиктором является аргументом в пользу того, что эффект который мы наблюдаем --- следствие неидеального обучения, а не влияния первого языка
-- социолингвистические параметры (образование, год рождения) сигнализируют о количестве импута литературного языка
+
 
 # Список литературы
